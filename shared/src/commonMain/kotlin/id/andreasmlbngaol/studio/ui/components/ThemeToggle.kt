@@ -1,5 +1,12 @@
 package id.andreasmlbngaol.studio.ui.components
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DarkMode
@@ -25,10 +32,19 @@ fun ThemeToggle(modifier: Modifier = Modifier) {
             contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
         ),
     ) {
-        Icon(
-            imageVector = if (config.darkTheme) Icons.Filled.LightMode else Icons.Filled.DarkMode,
-            contentDescription = if (config.darkTheme) config.strings.themeLight else config.strings.themeDark,
-            modifier = Modifier.size(24.dp),
-        )
+        AnimatedContent(
+            targetState = config.darkTheme,
+            transitionSpec = {
+                (fadeIn(tween(220)) + scaleIn(tween(220), initialScale = 0.6f))
+                    .togetherWith(fadeOut(tween(160)) + scaleOut(tween(160), targetScale = 0.6f))
+            },
+            label = "themeIcon",
+        ) { dark ->
+            Icon(
+                imageVector = if (dark) Icons.Filled.LightMode else Icons.Filled.DarkMode,
+                contentDescription = if (dark) config.strings.themeLight else config.strings.themeDark,
+                modifier = Modifier.size(24.dp),
+            )
+        }
     }
 }

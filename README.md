@@ -1,35 +1,26 @@
-This is a Kotlin Multiplatform project targeting Web.
+# Studio
 
-* [/shared](./shared/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./shared/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./shared/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./shared/src/jvmMain/kotlin)
-    folder is the appropriate location.
+Portfolio of Andreas Manatar Lumban Gaol, built with Compose Multiplatform for Web (Kotlin/Wasm).
 
-### Running the apps
+**Live:** https://andreasmlbngaol.github.io/studio/
 
-Use the run configurations provided by the run widget in your IDE's toolbar. You can also use these commands and options:
+## Stack
 
-- Web app:
-  - Wasm target (faster, modern browsers): `./gradlew :webApp:wasmJsBrowserDevelopmentRun`
-  - JS target (slower, supports older browsers): `./gradlew :webApp:jsBrowserDevelopmentRun`
+- Kotlin 2.4.21 and Compose Multiplatform 1.13
+- Material 3 Expressive
+- Kotlin/Wasm
+- Cloudflare Worker + Resend for the contact form
 
-### Running tests
+## Development
 
-Use the run button in your IDE's editor gutter, or run tests using Gradle tasks:
+```bash
+./gradlew :webApp:wasmJsBrowserDevelopmentRun
+./gradlew :webApp:wasmJsBrowserDistribution
+./gradlew :shared:wasmJsTest
+```
 
-- Web tests:
-  - Wasm target: `./gradlew :shared:wasmJsTest`
-  - JS target: `./gradlew :shared:jsTest`
+The contact form posts to a Cloudflare Worker. The Resend API key is stored as a Worker secret and never shipped to the client.
 
----
+## License
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://kotlinlang.org/compose-multiplatform/),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
-
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP).
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE).
