@@ -14,6 +14,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,10 +42,16 @@ import id.andreasmlbngaol.studio.state.LocalAppConfig
 import id.andreasmlbngaol.studio.state.LocalPageScrollController
 import id.andreasmlbngaol.studio.state.PageScrollController
 import id.andreasmlbngaol.studio.state.rememberAppSettings
+import id.andreasmlbngaol.studio.ui.components.AppearanceOverlay
 import id.andreasmlbngaol.studio.ui.components.BottomNav
 import id.andreasmlbngaol.studio.ui.components.DesktopHeader
 import id.andreasmlbngaol.studio.ui.components.MobileTopBar
+import id.andreasmlbngaol.studio.util.enterFullscreen
+import id.andreasmlbngaol.studio.util.exitFullscreen
+import id.andreasmlbngaol.studio.util.isFullscreenActive
+import id.andreasmlbngaol.studio.util.isFullscreenSupported
 import id.andreasmlbngaol.studio.util.markAppReady
+import id.andreasmlbngaol.studio.util.observeFullscreen
 import id.andreasmlbngaol.studio.util.setDocumentTitle
 
 private const val COMPACT_BREAKPOINT = 600
@@ -66,13 +73,25 @@ fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
     val scrollController = remember { PageScrollController() }
     val density = LocalDensity.current
     var headerVisible by remember { mutableStateOf(true) }
+    var fullscreen by remember { mutableStateOf(isFullscreenActive()) }
+    val fullscreenSupported = remember { isFullscreenSupported() }
+    var appearanceOpen by remember { mutableStateOf(false) }
+
+    DisposableEffect(Unit) {
+        val stopObserving = observeFullscreen { fullscreen = it }
+        onDispose { stopObserving() }
+    }
 
     LaunchedEffect(Unit) {
         withFrameNanos { }
         markAppReady()
     }
 
-    PortfolioTheme(darkTheme = darkTheme) {
+    PortfolioTheme(
+        darkTheme = darkTheme,
+        seedColor = settings.accentSeed,
+        shapeScale = settings.shapeScale,
+    ) {
         CompositionLocalProvider(
             LocalAppConfig provides AppConfig(
                 content = content,
@@ -82,8 +101,13 @@ fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
                 darkTheme = darkTheme,
                 compact = compact,
                 headerNav = headerNav,
+                accentSeed = settings.accentSeed,
+                shapeScale = settings.shapeScale,
                 onSetLanguage = settings::setLanguage,
                 onToggleTheme = { settings.toggleTheme(darkTheme) },
+                onSetThemeMode = settings::setThemeMode,
+                onSetAccentSeed = settings::setAccentSeed,
+                onSetShapeScale = settings::setShapeScale,
             ),
             LocalPageScrollController provides scrollController,
         ) {
@@ -107,6 +131,9 @@ fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
             }
             val isProject = segment == "project"
             val onHire: () -> Unit = { navController.navigateTopLevel(TopLevel.Contact) }
+            val onToggleFullscreen: () -> Unit = {
+                if (isFullscreenActive()) exitFullscreen() else enterFullscreen()
+            }
             val onBack: (() -> Unit)? = if (isProject) {
                 { navController.backToWork() }
             } else {
@@ -136,15 +163,24 @@ fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
                 val showDelta = with(density) { 8.dp.toPx() }
                 val topOffset = with(density) { 32.dp.toPx() }
                 var lastOffset = scrollController.offset
+                var accumulated = 0f
                 snapshotFlow { scrollController.offset to scrollController.isScrolling }
                     .collect { (offset, scrolling) ->
                         if (!scrolling) return@collect
                         val delta = offset - lastOffset
                         lastOffset = offset
+                        if (offset <= topOffset) {
+                            headerVisible = true
+                            accumulated = 0f
+                            return@collect
+                        }
+                        if (delta > 0f && accumulated < 0f || delta < 0f && accumulated > 0f) {
+                            accumulated = 0f
+                        }
+                        accumulated += delta
                         when {
-                            offset <= topOffset -> headerVisible = true
-                            delta > hideDelta -> headerVisible = false
-                            delta < -showDelta -> headerVisible = true
+                            accumulated > hideDelta -> headerVisible = false
+                            accumulated < -showDelta -> headerVisible = true
                         }
                     }
             }
@@ -153,43 +189,58 @@ fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background,
             ) {
-                Column(Modifier.fillMaxSize()) {
-                    if (compact) {
-                        AnimatedVisibility(
-                            visible = headerVisible || selected == null,
-                            enter = expandVertically(animationSpec = tween(320), expandFrom = Alignment.Top),
-                            exit = shrinkVertically(animationSpec = tween(320), shrinkTowards = Alignment.Top),
-                        ) {
-                            MobileTopBar(
-                                title = title,
-                                onBack = onBack,
+                Box(Modifier.fillMaxSize()) {
+                    Column(Modifier.fillMaxSize()) {
+                        if (compact) {
+                            AnimatedVisibility(
+                                visible = headerVisible || selected == null,
+                                enter = expandVertically(animationSpec = tween(320), expandFrom = Alignment.Top),
+                                exit = shrinkVertically(animationSpec = tween(320), shrinkTowards = Alignment.Top),
+                            ) {
+                                MobileTopBar(
+                                    title = title,
+                                    onBack = onBack,
+                                    onHire = onHire,
+                                    onHome = { navController.navigateTopLevel(TopLevel.Home) },
+                                    fullscreen = fullscreen,
+                                    fullscreenSupported = fullscreenSupported,
+                                    onToggleFullscreen = onToggleFullscreen,
+                                    onOpenAppearance = { appearanceOpen = true },
+                                )
+                            }
+                        } else {
+                            DesktopHeader(
+                                selected = selected,
+                                onNavigate = navController::navigateTopLevel,
                                 onHire = onHire,
+                                onBack = onBack,
                                 onHome = { navController.navigateTopLevel(TopLevel.Home) },
+                                showNav = headerNav,
+                                fullscreen = fullscreen,
+                                fullscreenSupported = fullscreenSupported,
+                                onToggleFullscreen = onToggleFullscreen,
+                                onOpenAppearance = { appearanceOpen = true },
                             )
                         }
-                    } else {
-                        DesktopHeader(
-                            selected = selected,
-                            onNavigate = navController::navigateTopLevel,
-                            onHire = onHire,
-                            onBack = onBack,
-                            onHome = { navController.navigateTopLevel(TopLevel.Home) },
-                            showNav = headerNav,
-                        )
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxWidth(),
+                        ) {
+                            AppNavHost(navController = navController)
+                        }
+                        if (!headerNav && selected != null) {
+                            BottomNav(
+                                selected = selected,
+                                onNavigate = navController::navigateTopLevel,
+                            )
+                        }
                     }
-                    Box(
-                        modifier = Modifier
-                            .weight(1f)
-                            .fillMaxWidth(),
-                    ) {
-                        AppNavHost(navController = navController)
-                    }
-                    if (!headerNav && selected != null) {
-                        BottomNav(
-                            selected = selected,
-                            onNavigate = navController::navigateTopLevel,
-                        )
-                    }
+                    AppearanceOverlay(
+                        visible = appearanceOpen,
+                        compact = compact,
+                        onDismiss = { appearanceOpen = false },
+                    )
                 }
             }
         }

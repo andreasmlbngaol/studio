@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -13,41 +14,65 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import id.andreasmlbngaol.studio.state.LocalAppConfig
 
 /**
- * Placeholder app mark for Studio: a primary rounded square with a four point star.
- * Replaced with the final logo asset later.
+ * Studio mark: a grid of selected work where the chosen tile opens into a
+ * bracket pair. Built on a 160 unit grid so it stays crisp at any size.
  */
 @Composable
 fun StudioMark(size: Dp, corner: Dp) {
     val container = MaterialTheme.colorScheme.primary
-    val star = MaterialTheme.colorScheme.onPrimary
+    val ink = MaterialTheme.colorScheme.onPrimary
     Box(
         modifier = Modifier
             .size(size)
             .clip(RoundedCornerShape(corner))
             .background(container),
-        contentAlignment = Alignment.Center,
     ) {
-        Canvas(Modifier.size(size * 0.54f)) {
-            val width = this.size.width
-            val height = this.size.height
-            val centerX = width / 2f
-            val centerY = height / 2f
-            val pinch = width * 0.1f
-            val path = Path().apply {
-                moveTo(centerX, 0f)
-                quadraticTo(centerX + pinch, centerY - pinch, width, centerY)
-                quadraticTo(centerX + pinch, centerY + pinch, centerX, height)
-                quadraticTo(centerX - pinch, centerY + pinch, 0f, centerY)
-                quadraticTo(centerX - pinch, centerY - pinch, centerX, 0f)
-                close()
+        Canvas(Modifier.fillMaxSize()) {
+            val unit = this.size.width / 160f
+            val soft = ink.copy(alpha = 0.26f)
+            val cell = 56f * unit
+            val cellRadius = CornerRadius(16f * unit)
+            fun tile(x: Float, y: Float) {
+                drawRoundRect(
+                    color = soft,
+                    topLeft = Offset(x * unit, y * unit),
+                    size = Size(cell, cell),
+                    cornerRadius = cellRadius,
+                )
             }
-            drawPath(path, star)
+            tile(18f, 18f)
+            tile(86f, 18f)
+            tile(18f, 86f)
+
+            val bracket = Stroke(
+                width = 17f * unit,
+                cap = StrokeCap.Butt,
+                join = StrokeJoin.Round,
+            )
+            val left = Path().apply {
+                moveTo(110f * unit, 94.5f * unit)
+                lineTo(94.5f * unit, 114f * unit)
+                lineTo(110f * unit, 133.5f * unit)
+            }
+            val right = Path().apply {
+                moveTo(118f * unit, 94.5f * unit)
+                lineTo(133.5f * unit, 114f * unit)
+                lineTo(118f * unit, 133.5f * unit)
+            }
+            drawPath(left, ink, style = bracket)
+            drawPath(right, ink, style = bracket)
         }
     }
 }

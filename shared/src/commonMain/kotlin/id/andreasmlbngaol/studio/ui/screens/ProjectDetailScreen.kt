@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.automirrored.filled.Assignment
@@ -51,6 +50,7 @@ import id.andreasmlbngaol.studio.data.Project
 import id.andreasmlbngaol.studio.data.ProjectDetail
 import id.andreasmlbngaol.studio.data.ResultStat
 import id.andreasmlbngaol.studio.navigation.TopLevel
+import id.andreasmlbngaol.studio.scaledShape
 import id.andreasmlbngaol.studio.state.LocalAppConfig
 import id.andreasmlbngaol.studio.theme.bodySmallTextStyle
 import id.andreasmlbngaol.studio.theme.bodyTextStyle
@@ -172,7 +172,7 @@ private fun ExpandedProjectContent(
                 .fillMaxWidth()
                 .padding(horizontal = 64.dp, vertical = 16.dp)
                 .height(560.dp)
-                .background(MaterialTheme.colorScheme.primaryContainer, RoundedCornerShape(24.dp)),
+                .background(MaterialTheme.colorScheme.primaryContainer, scaledShape(24.dp)),
             contentAlignment = Alignment.Center,
         ) {
             Icon(
@@ -220,7 +220,7 @@ private fun ExpandedProjectContent(
             }
             Surface(
                 modifier = Modifier.weight(1.03f),
-                shape = RoundedCornerShape(32.dp),
+                shape = MaterialTheme.shapes.extraLargeIncreased,
                 color = MaterialTheme.colorScheme.surfaceContainerLow,
             ) {
                 Column(
@@ -296,7 +296,7 @@ private fun CompactProjectContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(220.dp)
-                .background(MaterialTheme.colorScheme.primaryContainer, RoundedCornerShape(24.dp)),
+                .background(MaterialTheme.colorScheme.primaryContainer, scaledShape(24.dp)),
             contentAlignment = Alignment.Center,
         ) {
             Icon(
@@ -408,7 +408,7 @@ private fun ProjectActions(
 private fun MetaItem(label: String, value: String, modifier: Modifier = Modifier) {
     Surface(
         modifier = modifier,
-        shape = RoundedCornerShape(16.dp),
+        shape = MaterialTheme.shapes.large,
         color = MaterialTheme.colorScheme.surfaceContainerLow,
     ) {
         Column(
@@ -519,7 +519,7 @@ private fun ResultsSection(detail: ProjectDetail, compact: Boolean) {
 @Composable
 private fun StatCard(stat: ResultStat, index: Int, compact: Boolean, modifier: Modifier = Modifier) {
     val (container, content) = statColors(index)
-    Surface(modifier = modifier, shape = RoundedCornerShape(16.dp), color = container) {
+    Surface(modifier = modifier, shape = MaterialTheme.shapes.large, color = container) {
         Column(
             modifier = Modifier.padding(if (compact) 20.dp else 24.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp),
@@ -595,7 +595,7 @@ private fun GalleryCard(
 ) {
     Surface(
         modifier = modifier.height(height.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = MaterialTheme.shapes.large,
         color = MaterialTheme.colorScheme.surfaceContainerHighest,
     ) {
         Column(
@@ -636,7 +636,7 @@ private fun NextProjectSection(
                 horizontal = if (compact) 0.dp else 64.dp,
                 vertical = if (compact) 0.dp else 56.dp,
             ),
-        shape = RoundedCornerShape(if (compact) 24.dp else 32.dp),
+        shape = if (compact) scaledShape(24.dp) else MaterialTheme.shapes.extraLargeIncreased,
         color = MaterialTheme.colorScheme.tertiaryContainer,
     ) {
         Row(
@@ -668,7 +668,7 @@ private fun NextProjectSection(
                 modifier = Modifier
                     .size(if (compact) 56.dp else 96.dp)
                     .clickable { onOpenProject(next.slug) },
-                shape = RoundedCornerShape(if (compact) 18.dp else 28.dp),
+                shape = if (compact) scaledShape(18.dp) else MaterialTheme.shapes.extraLarge,
                 color = MaterialTheme.colorScheme.primary,
             ) {
                 Box(contentAlignment = Alignment.Center) {

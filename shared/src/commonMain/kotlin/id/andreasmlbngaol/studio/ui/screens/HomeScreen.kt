@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Download
@@ -357,7 +356,7 @@ private fun ContactTeaser(compact: Boolean, onContact: () -> Unit) {
     ) {
         Surface(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(32.dp),
+            shape = MaterialTheme.shapes.extraLargeIncreased,
             color = MaterialTheme.colorScheme.surfaceContainerLow,
         ) {
             if (compact) {

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Code
@@ -38,7 +37,7 @@ import org.jetbrains.compose.resources.painterResource
 fun SkillChip(skill: Skill, compact: Boolean) {
     Surface(
         onClick = { openUrl(skill.url) },
-        shape = RoundedCornerShape(8.dp),
+        shape = MaterialTheme.shapes.small,
         color = MaterialTheme.colorScheme.surfaceContainerLow,
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
     ) {
@@ -81,7 +80,7 @@ private fun tagIcon(icon: DetailTagIcon): ImageVector = when (icon) {
 @Composable
 fun TagChip(tag: DetailTag) {
     Surface(
-        shape = RoundedCornerShape(8.dp),
+        shape = MaterialTheme.shapes.small,
         color = MaterialTheme.colorScheme.surfaceContainerLow,
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
     ) {
@@ -115,7 +114,7 @@ fun FilterPill(text: String, selected: Boolean, onClick: () -> Unit) {
         selected = selected,
         onClick = onClick,
         label = { Text(text, style = MaterialTheme.typography.labelLarge) },
-        shape = RoundedCornerShape(8.dp),
+        shape = MaterialTheme.shapes.small,
         colors = FilterChipDefaults.filterChipColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
             labelColor = MaterialTheme.colorScheme.onSurfaceVariant,

@@ -1,6 +1,7 @@
 package id.andreasmlbngaol.studio.state
 
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.ui.graphics.Color
 import id.andreasmlbngaol.studio.data.Language
 import id.andreasmlbngaol.studio.data.PortfolioContent
 import id.andreasmlbngaol.studio.data.Strings
@@ -14,8 +15,13 @@ data class AppConfig(
     val darkTheme: Boolean,
     val compact: Boolean,
     val headerNav: Boolean,
+    val accentSeed: Color?,
+    val shapeScale: Float,
     val onSetLanguage: (Language) -> Unit,
     val onToggleTheme: () -> Unit,
+    val onSetThemeMode: (ThemeMode) -> Unit,
+    val onSetAccentSeed: (Color?) -> Unit,
+    val onSetShapeScale: (Float) -> Unit,
 ) {
     val appName: String get() = "Studio"
 }

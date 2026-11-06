@@ -20,11 +20,14 @@ import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
@@ -34,6 +37,16 @@ import studio.shared.generated.resources.Res
 import studio.shared.generated.resources.avatar
 
 private val AvatarRing = Color(0xFF111318)
+
+/**
+ * The portrait is deliberately black and white at all times: it is a fixed reference in a
+ * page that can be recolored at will, and a tinted face reads as unwell. Keeping it
+ * constant also means the photo never changes character when the accent does.
+ */
+@Composable
+private fun avatarColorFilter(): ColorFilter = remember {
+    ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) })
+}
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -116,6 +129,7 @@ fun HeroCollage(modifier: Modifier = Modifier) {
                 painter = painterResource(Res.drawable.avatar),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
+                colorFilter = avatarColorFilter(),
                 modifier = Modifier
                     .offset(200.dp * s, 200.dp * s)
                     .size(240.dp * s)
@@ -134,7 +148,9 @@ fun CompactHeroCollage(modifier: Modifier = Modifier) {
         val s = maxWidth.value / 350f
         Box(
             Modifier
-                .size(350.dp * s, 220.dp * s)
+                // 250 rather than 220: the cloud and laptop circles end at y = 250, and
+                // clipToBounds was cutting their bottom edges off.
+                .size(350.dp * s, 250.dp * s)
                 .clipToBounds(),
         ) {
             Box(
@@ -206,6 +222,7 @@ fun CompactHeroCollage(modifier: Modifier = Modifier) {
                 painter = painterResource(Res.drawable.avatar),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
+                colorFilter = avatarColorFilter(),
                 modifier = Modifier
                     .offset(126.dp * s, 86.dp * s)
                     .size(96.dp * s)

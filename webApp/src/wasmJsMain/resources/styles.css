@@ -11,7 +11,15 @@ html, body {
 }
 
 body {
-    touch-action: pan-y;
+    /* The canvas owns all gestures: Compose implements its own scrolling, so the
+       browser must not consume vertical swipes (which cancels the pointer
+       stream and makes the page feel frozen on touch devices). */
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+compose-component {
+    touch-action: none;
 }
 
 canvas {

@@ -1,5 +1,16 @@
 package id.andreasmlbngaol.studio.ui.screens
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.SizeTransform
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -21,10 +32,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import id.andreasmlbngaol.studio.data.SkillGroup
+import id.andreasmlbngaol.studio.scaledTopShape
 import id.andreasmlbngaol.studio.state.LocalAppConfig
 import id.andreasmlbngaol.studio.theme.bodyTextStyle
 import id.andreasmlbngaol.studio.theme.captionTextStyle
@@ -67,7 +81,6 @@ private fun AboutBody(
 ) {
     val config = LocalAppConfig.current
     val strings = config.strings
-    val items = if (isEducation) config.content.education else config.content.experience
 
     if (compact) {
         Column(
@@ -96,7 +109,7 @@ private fun AboutBody(
                 )
             }
             AboutTabs(selected = isEducation, onSelect = onSelectTab)
-            TimelineList(items = items, compact = true)
+            AboutTabContent(compact = true, isEducation = isEducation)
         }
     } else {
         Row(
@@ -128,9 +141,38 @@ private fun AboutBody(
                     selected = isEducation,
                     onSelect = onSelectTab,
                 )
-                TimelineList(items = items, compact = false)
+                AboutTabContent(compact = false, isEducation = isEducation)
             }
         }
+    }
+}
+
+@Composable
+private fun AboutTabContent(compact: Boolean, isEducation: Boolean) {
+    val content = LocalAppConfig.current.content
+    AnimatedContent(
+        targetState = isEducation,
+        transitionSpec = {
+            val direction = if (targetState) 1 else -1
+            val enter = fadeIn(tween(durationMillis = 200, delayMillis = 80)) +
+                slideInHorizontally(tween(durationMillis = 340, easing = FastOutSlowInEasing)) { width ->
+                    direction * width / 8
+                }
+            val exit = fadeOut(tween(durationMillis = 110)) +
+                slideOutHorizontally(tween(durationMillis = 200, easing = FastOutSlowInEasing)) { width ->
+                    -direction * width / 14
+                }
+            enter togetherWith exit using SizeTransform(clip = false) { _, _ ->
+                tween(durationMillis = 340, easing = FastOutSlowInEasing)
+            }
+        },
+        contentAlignment = Alignment.TopStart,
+        label = "about-tab-content",
+    ) { education ->
+        TimelineList(
+            items = if (education) content.education else content.experience,
+            compact = compact,
+        )
     }
 }
 
@@ -160,9 +202,34 @@ private fun TabItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val labelColor by animateColorAsState(
+        targetValue = if (selected) {
+            MaterialTheme.colorScheme.primary
+        } else {
+            MaterialTheme.colorScheme.onSurfaceVariant
+        },
+        animationSpec = tween<Color>(durationMillis = 220, easing = FastOutSlowInEasing),
+        label = "tab-label-color",
+    )
+    val indicatorColor by animateColorAsState(
+        targetValue = if (selected) {
+            MaterialTheme.colorScheme.primary
+        } else {
+            MaterialTheme.colorScheme.outlineVariant
+        },
+        animationSpec = tween<Color>(durationMillis = 260, easing = FastOutSlowInEasing),
+        label = "tab-indicator-color",
+    )
+    val indicatorHeight by animateDpAsState(
+        targetValue = if (selected) 3.dp else 1.dp,
+        animationSpec = tween(durationMillis = 260, easing = FastOutSlowInEasing),
+        label = "tab-indicator-height",
+    )
+
     Column(
         modifier = modifier
             .fillMaxSize()
+            .clip(scaledTopShape(12.dp))
             .clickable(onClick = onClick),
     ) {
         Box(
@@ -174,33 +241,21 @@ private fun TabItem(
             Text(
                 text = label,
                 style = MaterialTheme.typography.labelLarge,
-                color = if (selected) {
-                    MaterialTheme.colorScheme.primary
-                } else {
-                    MaterialTheme.colorScheme.onSurfaceVariant
-                },
+                color = labelColor,
             )
         }
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(3.dp),
+            contentAlignment = Alignment.BottomCenter,
         ) {
-            if (selected) {
-                Box(
-                    Modifier
-                        .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.primary),
-                )
-            } else {
-                Box(
-                    Modifier
-                        .fillMaxWidth()
-                        .height(1.dp)
-                        .align(Alignment.BottomCenter)
-                        .background(MaterialTheme.colorScheme.outlineVariant),
-                )
-            }
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .height(indicatorHeight)
+                    .background(indicatorColor),
+            )
         }
     }
 }

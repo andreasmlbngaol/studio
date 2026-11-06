@@ -12,7 +12,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Fullscreen
+import androidx.compose.material.icons.filled.FullscreenExit
 import androidx.compose.material.icons.filled.Mail
+import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -37,6 +40,10 @@ fun DesktopHeader(
     onBack: (() -> Unit)? = null,
     onHome: () -> Unit = {},
     showNav: Boolean = true,
+    fullscreen: Boolean = false,
+    fullscreenSupported: Boolean = false,
+    onToggleFullscreen: () -> Unit = {},
+    onOpenAppearance: () -> Unit = {},
 ) {
     val strings = LocalAppConfig.current.strings
     Box(
@@ -91,7 +98,10 @@ fun DesktopHeader(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             LanguageToggle()
-            ThemeToggle()
+            if (fullscreenSupported) {
+                FullscreenButton(fullscreen = fullscreen, onClick = onToggleFullscreen)
+            }
+            AppearanceButton(onClick = onOpenAppearance)
             HireMeButton(onClick = onHire)
         }
     }
@@ -103,6 +113,10 @@ fun MobileTopBar(
     onBack: (() -> Unit)?,
     onHire: () -> Unit,
     onHome: () -> Unit = {},
+    fullscreen: Boolean = false,
+    fullscreenSupported: Boolean = false,
+    onToggleFullscreen: () -> Unit = {},
+    onOpenAppearance: () -> Unit = {},
 ) {
     val strings = LocalAppConfig.current.strings
     Row(
@@ -147,6 +161,9 @@ fun MobileTopBar(
                     modifier = Modifier.size(24.dp),
                 )
             }
+            if (fullscreenSupported) {
+                FullscreenButton(fullscreen = fullscreen, onClick = onToggleFullscreen)
+            }
         } else {
             if (title == null) {
                 StudioBrand(
@@ -166,7 +183,48 @@ fun MobileTopBar(
             Spacer(Modifier.weight(1f))
             LanguageToggle()
             Spacer(Modifier.width(8.dp))
-            ThemeToggle()
+            AppearanceButton(onClick = onOpenAppearance)
+            if (fullscreenSupported) {
+                Spacer(Modifier.width(8.dp))
+                FullscreenButton(fullscreen = fullscreen, onClick = onToggleFullscreen)
+            }
         }
+    }
+}
+
+@Composable
+private fun AppearanceButton(onClick: () -> Unit) {
+    val strings = LocalAppConfig.current.strings
+    FilledTonalIconButton(
+        onClick = onClick,
+        shapes = IconButtonDefaults.shapes(),
+        modifier = Modifier.size(40.dp),
+        colors = IconButtonDefaults.filledTonalIconButtonColors(
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+        ),
+    ) {
+        Icon(
+            imageVector = Icons.Filled.Palette,
+            contentDescription = strings.appearanceOpen,
+            modifier = Modifier.size(24.dp),
+        )
+    }
+}
+
+@Composable
+private fun FullscreenButton(fullscreen: Boolean, onClick: () -> Unit) {
+    val strings = LocalAppConfig.current.strings
+    IconButton(
+        onClick = onClick,
+        shapes = IconButtonDefaults.shapes(),
+        modifier = Modifier.size(40.dp),
+    ) {
+        Icon(
+            imageVector = if (fullscreen) Icons.Filled.FullscreenExit else Icons.Filled.Fullscreen,
+            contentDescription = if (fullscreen) strings.fullscreenExit else strings.fullscreenEnter,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.size(24.dp),
+        )
     }
 }

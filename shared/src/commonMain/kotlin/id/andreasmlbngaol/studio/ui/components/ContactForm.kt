@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
@@ -93,7 +92,7 @@ fun ContactForm(compact: Boolean, modifier: Modifier = Modifier) {
             } else {
                 null
             },
-            shape = RoundedCornerShape(4.dp),
+            shape = MaterialTheme.shapes.extraSmall,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
         )
         OutlinedTextField(
@@ -112,7 +111,7 @@ fun ContactForm(compact: Boolean, modifier: Modifier = Modifier) {
             } else {
                 null
             },
-            shape = RoundedCornerShape(4.dp),
+            shape = MaterialTheme.shapes.extraSmall,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email, imeAction = ImeAction.Next),
         )
         OutlinedTextField(
@@ -131,7 +130,7 @@ fun ContactForm(compact: Boolean, modifier: Modifier = Modifier) {
             } else {
                 null
             },
-            shape = RoundedCornerShape(4.dp),
+            shape = MaterialTheme.shapes.extraSmall,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Default),
         )
         Button(

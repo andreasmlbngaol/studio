@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Assignment
 import androidx.compose.material.icons.filled.Code
@@ -68,7 +67,7 @@ fun ProjectCard(
     val (accent, onAccent) = accentColors(index)
     Card(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(if (compact) 16.dp else 12.dp),
+        shape = if (compact) MaterialTheme.shapes.large else MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
     ) {
         Column(

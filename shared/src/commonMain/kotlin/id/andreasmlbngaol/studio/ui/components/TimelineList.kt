@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BusinessCenter
 import androidx.compose.material.icons.filled.Groups
@@ -100,7 +99,7 @@ fun TimelineList(
     } else {
         Surface(
             modifier = modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(32.dp),
+            shape = MaterialTheme.shapes.extraLargeIncreased,
             color = MaterialTheme.colorScheme.surfaceContainerLow,
         ) {
             Column(

@@ -8,29 +8,67 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.MotionScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
+import com.materialkolor.PaletteStyle
+import com.materialkolor.dynamicColorScheme
 
 private const val THEME_TRANSITION_MILLIS = 480
 
+// Shorter so dragging the playground hue slider still feels direct.
+private const val SEED_TRANSITION_MILLIS = 200
+
+/** Below this channel spread the seed carries no usable hue. */
+private const val NEUTRAL_CHROMA_THRESHOLD = 0.02f
+
+private fun Color.isNeutral(): Boolean =
+    maxOf(red, green, blue) - minOf(red, green, blue) < NEUTRAL_CHROMA_THRESHOLD
+
+/**
+ * @param seedColor null keeps the exact Figma tokens; any color derives all 48 roles
+ *   from that seed so contrast stays guaranteed in both light and dark.
+ * @param shapeScale 0 = sharp, [DEFAULT_SHAPE_SCALE] = as designed, 1 = soft.
+ */
 @Composable
 fun PortfolioTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
+    seedColor: Color? = null,
+    shapeScale: Float = DEFAULT_SHAPE_SCALE,
     content: @Composable () -> Unit,
 ) {
-    val target = if (darkTheme) DarkColors else LightColors
-    MaterialExpressiveTheme(
-        colorScheme = animatedColorScheme(target),
-        typography = portfolioTypography(),
-        shapes = PortfolioShapes,
-        motionScheme = MotionScheme.expressive(),
-        content = content,
-    )
+    val target = remember(seedColor, darkTheme) {
+        when {
+            seedColor == null && darkTheme -> DarkColors
+            seedColor == null -> LightColors
+            else -> dynamicColorScheme(
+                seedColor = seedColor,
+                isDark = darkTheme,
+                // A neutral seed has no hue, and the HCT conversion then picks one from
+                // rounding noise, which produced a random cyan page. Monochrome keeps a
+                // grey seed grey.
+                style = if (seedColor.isNeutral()) PaletteStyle.Monochrome else PaletteStyle.TonalSpot,
+            )
+        }
+    }
+    val multiplier = shapeMultiplier(shapeScale)
+    val transitionMillis = if (seedColor == null) THEME_TRANSITION_MILLIS else SEED_TRANSITION_MILLIS
+
+    CompositionLocalProvider(LocalShapeMultiplier provides multiplier) {
+        MaterialExpressiveTheme(
+            colorScheme = animatedColorScheme(target, transitionMillis),
+            typography = portfolioTypography(),
+            shapes = portfolioShapes(multiplier),
+            motionScheme = MotionScheme.expressive(),
+            content = content,
+        )
+    }
 }
 
 @Composable
-private fun animatedColorScheme(target: ColorScheme): ColorScheme {
+private fun animatedColorScheme(target: ColorScheme, durationMillis: Int): ColorScheme {
     val spec = tween<Color>(
-        durationMillis = THEME_TRANSITION_MILLIS,
+        durationMillis = durationMillis,
         easing = FastOutSlowInEasing,
     )
 
