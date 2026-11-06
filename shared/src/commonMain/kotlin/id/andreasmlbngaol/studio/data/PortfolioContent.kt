@@ -1,0 +1,772 @@
+package id.andreasmlbngaol.studio.data
+
+import studio.shared.generated.resources.Res
+import studio.shared.generated.resources.logo_cloudflare
+import studio.shared.generated.resources.logo_compose
+import studio.shared.generated.resources.logo_compose_multiplatform
+import studio.shared.generated.resources.logo_dart
+import studio.shared.generated.resources.logo_docker
+import studio.shared.generated.resources.logo_firebase
+import studio.shared.generated.resources.logo_flutter
+import studio.shared.generated.resources.logo_git
+import studio.shared.generated.resources.logo_java
+import studio.shared.generated.resources.logo_kotlin
+import studio.shared.generated.resources.logo_ktor
+import studio.shared.generated.resources.logo_nextjs
+import studio.shared.generated.resources.logo_postgresql
+import studio.shared.generated.resources.logo_python
+import studio.shared.generated.resources.logo_pytorch
+import studio.shared.generated.resources.logo_react
+import studio.shared.generated.resources.logo_rust
+import studio.shared.generated.resources.logo_spring_boot
+import studio.shared.generated.resources.logo_supabase
+import studio.shared.generated.resources.logo_tensorflow
+import studio.shared.generated.resources.logo_typescript
+import studio.shared.generated.resources.logo_vercel
+import studio.shared.generated.resources.logo_zorin
+
+private val enStrings = Strings(
+    navHome = "Home",
+    navWork = "Work",
+    navAbout = "About",
+    navContact = "Contact",
+    hireMe = "Hire me",
+    themeLight = "Switch to light mode",
+    themeDark = "Switch to dark mode",
+    homeGreeting = "Hi, I'm",
+    homeName = "Andreas",
+    homeSubtitle = "I build Android apps, backends, and AI tools, mostly with Kotlin, TypeScript, and Python. Based in Medan, Indonesia.",
+    viewWork = "View work",
+    downloadCv = "Download CV",
+    selectedWork = "Selected work",
+    viewAll = "View all",
+    details = "Details",
+    code = "Code",
+    aboutTeaserTitle = "About me",
+    aboutTeaserBody = "I'm Andreas, a software engineer based in Medan. I like turning everyday problems into software that feels simple, useful, and reliable. I studied Computer Science at Universitas Sumatera Utara and spent three months as the only IT person at Caritas KAM.",
+    readMore = "More about me",
+    contactCtaTitle = "Have something in mind?",
+    contactCtaBody = "A project, a question, or just a hello. My inbox is open.",
+    contactCtaButton = "Get in touch",
+    footerCopyright = "© 2026 Andreas.",
+    workTitle = "All projects",
+    workSubtitle = "Three highlights, plus nine more projects.",
+    highlights = "Highlights",
+    moreProjects = "More projects",
+    projectsCount = "9 projects",
+    tableNumber = "#",
+    tableProject = "Project",
+    tablePlatform = "Platform",
+    tableStack = "Stack",
+    tableYear = "Year",
+    filterAll = "All",
+    filterAndroid = "Android",
+    filterBackend = "Backend",
+    filterAi = "AI",
+    filterWeb = "Web",
+    filterFullStack = "Full stack",
+    aboutTitle = "About",
+    aboutSubtitle = "Software engineer based in Medan, Indonesia.",
+    aboutMe = "About me",
+    experience = "Experience",
+    education = "Education",
+    skillsTitle = "Skills and stack",
+    skillsSubtitle = "Languages, frameworks, and tools I use most.",
+    languages = "Languages",
+    frameworks = "Frameworks",
+    ai = "AI",
+    data = "Data",
+    tools = "Tools",
+    contactTitle = "Contact",
+    contactSubtitle = "Projects, questions, or just a hello.",
+    sayHello = "Say hello.",
+    contactBody = "Have a project, a question, or just want to talk? Send a message. I read every one.",
+    formName = "Name",
+    formNamePlaceholder = "Your name",
+    formEmail = "Email",
+    formEmailPlaceholder = "you@example.com",
+    formMessage = "Message",
+    formMessagePlaceholder = "Tell me more...",
+    formSend = "Send message",
+    formSending = "Sending...",
+    formSuccess = "Message sent. I'll get back to you soon.",
+    formError = "Something went wrong. Please try again or email me directly.",
+    formNameError = "Please enter your name.",
+    formEmailError = "Please enter a valid email.",
+    formMessageError = "Please write at least 10 characters.",
+    backToWork = "Back to work",
+    share = "Share",
+    overview = "Overview",
+    problem = "Problem",
+    approach = "Approach",
+    outcome = "Outcome",
+    results = "Results",
+    gallery = "Gallery",
+    nextProject = "Next project",
+    moreWork = "More work",
+    allProjects = "All projects",
+    role = "Role",
+    timeline = "Timeline",
+    stack = "Stack",
+    platform = "Platform",
+    downloadApk = "Download APK",
+    liveDemo = "Live demo",
+    liveApp = "Live app",
+    sourceCode = "Source code",
+)
+
+private val idStrings = Strings(
+    navHome = "Beranda",
+    navWork = "Karya",
+    navAbout = "Tentang",
+    navContact = "Kontak",
+    hireMe = "Hire me",
+    themeLight = "Ganti ke mode terang",
+    themeDark = "Ganti ke mode gelap",
+    homeGreeting = "Halo, saya",
+    homeName = "Andreas",
+    homeSubtitle = "Saya membangun aplikasi Android, backend, dan alat AI, sebagian besar dengan Kotlin, TypeScript, dan Python. Berbasis di Medan, Indonesia.",
+    viewWork = "Lihat karya saya",
+    downloadCv = "Unduh CV",
+    selectedWork = "Karya pilihan",
+    viewAll = "Lihat semua",
+    details = "Detail",
+    code = "Kode",
+    aboutTeaserTitle = "Tentang saya",
+    aboutTeaserBody = "Saya Andreas, software engineer yang tinggal di Medan. Saya suka mengubah masalah sehari-hari jadi software yang sederhana, berguna, dan bisa diandalkan. Saya menempuh Ilmu Komputer di Universitas Sumatera Utara dan sempat jadi satu-satunya orang IT di Caritas KAM.",
+    readMore = "Selengkapnya",
+    contactCtaTitle = "Ada yang ingin dibicarakan?",
+    contactCtaBody = "Proyek, pertanyaan, atau sekadar mau kenalan? Kirim saja pesannya.",
+    contactCtaButton = "Hubungi saya",
+    footerCopyright = "© 2026 Andreas.",
+    workTitle = "Semua proyek",
+    workSubtitle = "Tiga unggulan, plus sembilan proyek lainnya.",
+    highlights = "Unggulan",
+    moreProjects = "Proyek lainnya",
+    projectsCount = "9 proyek",
+    tableNumber = "#",
+    tableProject = "Proyek",
+    tablePlatform = "Platform",
+    tableStack = "Stack",
+    tableYear = "Tahun",
+    filterAll = "Semua",
+    filterAndroid = "Android",
+    filterBackend = "Backend",
+    filterAi = "AI",
+    filterWeb = "Web",
+    filterFullStack = "Full stack",
+    aboutTitle = "Tentang",
+    aboutSubtitle = "Software engineer yang tinggal di Medan, Indonesia.",
+    aboutMe = "Tentang saya",
+    experience = "Pengalaman",
+    education = "Pendidikan",
+    skillsTitle = "Keahlian dan stack",
+    skillsSubtitle = "Bahasa, framework, dan tools yang paling sering saya pakai.",
+    languages = "Bahasa",
+    frameworks = "Framework",
+    ai = "AI",
+    data = "Data",
+    tools = "Tools",
+    contactTitle = "Kontak",
+    contactSubtitle = "Proyek, pertanyaan, atau sekadar menyapa.",
+    sayHello = "Mari ngobrol.",
+    contactBody = "Ada proyek, pertanyaan, atau sekadar mau kenalan? Kirim saja pesannya. Saya baca semuanya.",
+    formName = "Nama",
+    formNamePlaceholder = "Nama Anda",
+    formEmail = "Email",
+    formEmailPlaceholder = "you@example.com",
+    formMessage = "Pesan",
+    formMessagePlaceholder = "Ceritakan lebih lanjut...",
+    formSend = "Kirim pesan",
+    formSending = "Mengirim...",
+    formSuccess = "Pesan terkirim. Saya akan balas secepatnya.",
+    formError = "Terjadi kesalahan. Coba lagi atau email saya langsung.",
+    formNameError = "Nama wajib diisi.",
+    formEmailError = "Email tidak valid.",
+    formMessageError = "Pesan minimal 10 karakter.",
+    backToWork = "Kembali ke karya",
+    share = "Bagikan",
+    overview = "Ringkasan",
+    problem = "Masalah",
+    approach = "Pendekatan",
+    outcome = "Hasil",
+    results = "Hasil",
+    gallery = "Galeri",
+    nextProject = "Proyek berikutnya",
+    moreWork = "Karya lainnya",
+    allProjects = "Semua proyek",
+    role = "Peran",
+    timeline = "Waktu",
+    stack = "Stack",
+    platform = "Platform",
+    downloadApk = "Unduh APK",
+    liveDemo = "Demo langsung",
+    liveApp = "Buka aplikasi",
+    sourceCode = "Kode sumber",
+)
+
+private fun skillGroups(strings: Strings): List<SkillGroup> = listOf(
+    SkillGroup(
+        title = strings.languages,
+        skills = listOf(
+            Skill("Kotlin", Res.drawable.logo_kotlin, "https://kotlinlang.org/"),
+            Skill("Java", Res.drawable.logo_java, "https://www.java.com/"),
+            Skill("TypeScript", Res.drawable.logo_typescript, "https://www.typescriptlang.org/"),
+            Skill("Python", Res.drawable.logo_python, "https://www.python.org/"),
+            Skill("Dart", Res.drawable.logo_dart, "https://dart.dev/"),
+            Skill("Rust", Res.drawable.logo_rust, "https://www.rust-lang.org/", monochrome = true),
+        ),
+    ),
+    SkillGroup(
+        title = strings.frameworks,
+        skills = listOf(
+            Skill("Compose", Res.drawable.logo_compose, "https://developer.android.com/compose"),
+            Skill("Compose Multiplatform", Res.drawable.logo_compose_multiplatform, "https://www.jetbrains.com/compose-multiplatform/"),
+            Skill("Ktor", Res.drawable.logo_ktor, "https://ktor.io/"),
+            Skill("Spring Boot", Res.drawable.logo_spring_boot, "https://spring.io/projects/spring-boot"),
+            Skill("React", Res.drawable.logo_react, "https://react.dev/"),
+            Skill("Flutter", Res.drawable.logo_flutter, "https://flutter.dev/"),
+            Skill("Next.js", Res.drawable.logo_nextjs, "https://nextjs.org/", monochrome = true),
+        ),
+    ),
+    SkillGroup(
+        title = strings.ai,
+        skills = listOf(
+            Skill("TensorFlow", Res.drawable.logo_tensorflow, "https://www.tensorflow.org/"),
+            Skill("PyTorch", Res.drawable.logo_pytorch, "https://pytorch.org/"),
+        ),
+    ),
+    SkillGroup(
+        title = strings.data,
+        skills = listOf(
+            Skill("PostgreSQL", Res.drawable.logo_postgresql, "https://www.postgresql.org/"),
+            Skill("Firebase", Res.drawable.logo_firebase, "https://firebase.google.com/"),
+            Skill("Supabase", Res.drawable.logo_supabase, "https://supabase.com/"),
+        ),
+    ),
+    SkillGroup(
+        title = strings.tools,
+        skills = listOf(
+            Skill("Docker", Res.drawable.logo_docker, "https://www.docker.com/"),
+            Skill("Git", Res.drawable.logo_git, "https://git-scm.com/"),
+            Skill("Cloudflare", Res.drawable.logo_cloudflare, "https://www.cloudflare.com/"),
+            Skill("Vercel", Res.drawable.logo_vercel, "https://vercel.com/", monochrome = true),
+            Skill("Zorin OS", Res.drawable.logo_zorin, "https://zorin.com/os/"),
+        ),
+    ),
+)
+
+private data class ProjectCopy(
+    val cardDescription: String,
+    val tableDescription: String,
+    val lead: String,
+    val detail: ProjectDetail? = null,
+)
+
+private data class ProjectSeed(
+    val slug: String,
+    val name: String,
+    val platform: String,
+    val stack: String,
+    val year: String,
+    val categories: List<ProjectCategory>,
+    val githubUrl: String? = null,
+    val liveUrl: String? = null,
+    val apkUrl: String? = null,
+    val highlight: Boolean = false,
+    val en: ProjectCopy,
+    val id: ProjectCopy,
+)
+
+private val agalleryDetailEn = ProjectDetail(
+    tags = listOf(
+        DetailTag(DetailTagIcon.Android, "Android"),
+        DetailTag(DetailTagIcon.Code, "Kotlin"),
+        DetailTag(DetailTagIcon.Calendar, "2026"),
+    ),
+    role = "Solo developer",
+    timeline = "2026",
+    stack = "Kotlin, Compose, ONNX",
+    platform = "Android 10+",
+    problemTitle = "Cheap galleries are full of ads and missing features",
+    problemCount = "4",
+    approachTitle = "One media pipeline behind every screen",
+    approachCount = "1",
+    outcomeTitle = "AI runs offline, with no internet permission",
+    outcomeCount = "0",
+    body = listOf(
+        "AGallery reads the photos and videos already on the phone. There is no account, no sync, and no ads. The app is built around direct file access, so it can move, rename, and delete media without asking the system for permission on every action.",
+        "The AI tools run fully on-device with models the user imports. Background removal, upscaling, face restore, and denoise all run locally, and the app has no internet permission at all. The navigation bar uses liquid glass with real-time refraction on Android 13 and up, and the settings scale the grid and components from low-end to high-end phones.",
+    ),
+    results = listOf(
+        ResultStat("4", "on-device AI tools"),
+        ResultStat("2", "languages, EN and ID"),
+        ResultStat("0", "internet permission"),
+    ),
+    gallery = listOf(
+        GalleryItem(GalleryIcon.PhotoLibrary, "Library"),
+        GalleryItem(GalleryIcon.Image, "Viewer"),
+        GalleryItem(GalleryIcon.AutoAwesome, "AI tools"),
+    ),
+    nextSlug = "tomavue",
+)
+
+private val agalleryDetailId = ProjectDetail(
+    tags = listOf(
+        DetailTag(DetailTagIcon.Android, "Android"),
+        DetailTag(DetailTagIcon.Code, "Kotlin"),
+        DetailTag(DetailTagIcon.Calendar, "2026"),
+    ),
+    role = "Developer tunggal",
+    timeline = "2026",
+    stack = "Kotlin, Compose, ONNX",
+    platform = "Android 10+",
+    problemTitle = "Galeri murah penuh iklan dan minim fitur",
+    problemCount = "4",
+    approachTitle = "Satu pipeline media di balik setiap layar",
+    approachCount = "1",
+    outcomeTitle = "AI berjalan offline, tanpa izin internet",
+    outcomeCount = "0",
+    body = listOf(
+        "AGallery membaca foto dan video yang sudah ada di ponsel. Tanpa akun, tanpa sinkronisasi, dan tanpa iklan. Aplikasi ini dibangun di atas akses file langsung, jadi bisa memindahkan, mengganti nama, dan menghapus media tanpa meminta izin sistem di setiap tindakan.",
+        "Alat AI berjalan sepenuhnya di perangkat dengan model yang diimpor pengguna. Penghapus latar, upscaling, pemulihan wajah, dan denoise semuanya berjalan lokal, dan aplikasi ini sama sekali tidak punya izin internet. Bilah navigasi memakai liquid glass dengan refraksi real-time di Android 13 ke atas, dan pengaturan menyesuaikan grid serta komponen dari ponsel kelas bawah sampai atas.",
+    ),
+    results = listOf(
+        ResultStat("4", "alat AI di perangkat"),
+        ResultStat("2", "bahasa, EN dan ID"),
+        ResultStat("0", "izin internet"),
+    ),
+    gallery = listOf(
+        GalleryItem(GalleryIcon.PhotoLibrary, "Pustaka"),
+        GalleryItem(GalleryIcon.Image, "Penampil"),
+        GalleryItem(GalleryIcon.AutoAwesome, "Alat AI"),
+    ),
+    nextSlug = "tomavue",
+)
+
+private val tomavueDetailEn = ProjectDetail(
+    tags = listOf(
+        DetailTag(DetailTagIcon.Ai, "AI"),
+        DetailTag(DetailTagIcon.Web, "Web"),
+        DetailTag(DetailTagIcon.Calendar, "2026"),
+    ),
+    role = "AI, Backend, DevOps",
+    timeline = "Feb to Jun 2026",
+    stack = "React, Express, Flask, Docker",
+    platform = "Web",
+    problemTitle = "Leaf diseases are hard to identify early",
+    problemCount = "11",
+    approachTitle = "One model behind three services",
+    approachCount = "3",
+    outcomeTitle = "98% validation accuracy",
+    outcomeCount = "98",
+    body = listOf(
+        "TomaVue takes a photo of a tomato leaf and returns the most likely disease from 11 classes, with a confidence score and a treatment plan. The model is an EfficientNetV2L network fine-tuned in two phases.",
+        "The product is split into a React front end, an Express API, a Flask inference microservice, and a Streamlit dashboard for the data team. Every service runs in Docker Compose. Gemini writes the description and treatment steps after the model returns a label.",
+    ),
+    results = listOf(
+        ResultStat("98%", "validation accuracy"),
+        ResultStat("0.093", "validation loss"),
+        ResultStat("11", "disease classes"),
+    ),
+    gallery = listOf(
+        GalleryItem(GalleryIcon.Eco, "Detect"),
+        GalleryItem(GalleryIcon.Science, "Result"),
+        GalleryItem(GalleryIcon.Dashboard, "Dashboard"),
+    ),
+    nextSlug = "caritas-kopi",
+)
+
+private val tomavueDetailId = ProjectDetail(
+    tags = listOf(
+        DetailTag(DetailTagIcon.Ai, "AI"),
+        DetailTag(DetailTagIcon.Web, "Web"),
+        DetailTag(DetailTagIcon.Calendar, "2026"),
+    ),
+    role = "AI, Backend, DevOps",
+    timeline = "Feb sampai Jun 2026",
+    stack = "React, Express, Flask, Docker",
+    platform = "Web",
+    problemTitle = "Penyakit daun sulit dikenali sejak dini",
+    problemCount = "11",
+    approachTitle = "Satu model di balik tiga layanan",
+    approachCount = "3",
+    outcomeTitle = "Akurasi validasi 98%",
+    outcomeCount = "98",
+    body = listOf(
+        "TomaVue menerima foto daun tomat dan mengembalikan penyakit paling mungkin dari 11 kelas, dengan skor keyakinan dan rencana penanganan. Modelnya jaringan EfficientNetV2L yang di-fine-tune dalam dua tahap.",
+        "Produk ini dipecah menjadi front end React, API Express, microservice inferensi Flask, dan dashboard Streamlit untuk tim data. Semua layanan berjalan di Docker Compose. Gemini menulis deskripsi dan langkah penanganan setelah model mengembalikan label.",
+    ),
+    results = listOf(
+        ResultStat("98%", "akurasi validasi"),
+        ResultStat("0.093", "loss validasi"),
+        ResultStat("11", "kelas penyakit"),
+    ),
+    gallery = listOf(
+        GalleryItem(GalleryIcon.Eco, "Deteksi"),
+        GalleryItem(GalleryIcon.Science, "Hasil"),
+        GalleryItem(GalleryIcon.Dashboard, "Dashboard"),
+    ),
+    nextSlug = "caritas-kopi",
+)
+
+private val caritasDetailEn = ProjectDetail(
+    tags = listOf(
+        DetailTag(DetailTagIcon.Web, "Web"),
+        DetailTag(DetailTagIcon.FullStack, "Full stack"),
+        DetailTag(DetailTagIcon.Calendar, "2026"),
+    ),
+    role = "Full stack developer",
+    timeline = "Aug to Oct 2026",
+    stack = "Next.js, Supabase, R2",
+    platform = "Web",
+    problemTitle = "Survey data lived in scattered spreadsheets",
+    problemCount = "1",
+    approachTitle = "Guided forms on one Postgres schema",
+    approachCount = "8",
+    outcomeTitle = "Every record exports to PDF or DOCX",
+    outcomeCount = "2",
+    body = listOf(
+        "Caritas Kopi collects baseline data on coffee villages and farmers across Indonesia. Enumerators move through the administrative hierarchy from province to village, then record farmer groups, plots, GAP practices, production history, and market channels.",
+        "I built the app alone during my internship: the Next.js front end, the Prisma schema and migrations on Supabase, role-based access, photo upload to Cloudflare R2, PDF and DOCX export, and an admin analytics dashboard with seven views. The app is deployed on Vercel.",
+    ),
+    results = listOf(
+        ResultStat("21", "GAP items tracked"),
+        ResultStat("7", "analytics views"),
+        ResultStat("2", "export formats"),
+    ),
+    gallery = listOf(
+        GalleryItem(GalleryIcon.Assignment, "Form"),
+        GalleryItem(GalleryIcon.TableChart, "Records"),
+        GalleryItem(GalleryIcon.Insights, "Analytics"),
+    ),
+    nextSlug = null,
+)
+
+private val caritasDetailId = ProjectDetail(
+    tags = listOf(
+        DetailTag(DetailTagIcon.Web, "Web"),
+        DetailTag(DetailTagIcon.FullStack, "Full stack"),
+        DetailTag(DetailTagIcon.Calendar, "2026"),
+    ),
+    role = "Full stack developer",
+    timeline = "Agu sampai Okt 2026",
+    stack = "Next.js, Supabase, R2",
+    platform = "Web",
+    problemTitle = "Data survei tersebar di banyak spreadsheet",
+    problemCount = "1",
+    approachTitle = "Form terpandu di satu skema Postgres",
+    approachCount = "8",
+    outcomeTitle = "Setiap catatan bisa diekspor ke PDF atau DOCX",
+    outcomeCount = "2",
+    body = listOf(
+        "Caritas Kopi mengumpulkan data dasar desa dan petani kopi di seluruh Indonesia. Enumerator bergerak melalui hierarki administratif dari provinsi sampai desa, lalu mencatat kelompok tani, plot, praktik GAP, riwayat produksi, dan saluran pemasaran.",
+        "Saya membangun aplikasi ini sendiri selama magang: front end Next.js, skema dan migrasi Prisma di Supabase, akses berbasis peran, unggah foto ke Cloudflare R2, ekspor PDF dan DOCX, serta dashboard analitik admin dengan tujuh tampilan. Aplikasi di-deploy di Vercel.",
+    ),
+    results = listOf(
+        ResultStat("21", "item GAP terlacak"),
+        ResultStat("7", "tampilan analitik"),
+        ResultStat("2", "format ekspor"),
+    ),
+    gallery = listOf(
+        GalleryItem(GalleryIcon.Assignment, "Formulir"),
+        GalleryItem(GalleryIcon.TableChart, "Catatan"),
+        GalleryItem(GalleryIcon.Insights, "Analitik"),
+    ),
+    nextSlug = null,
+)
+
+private val projectSeeds = listOf(
+    ProjectSeed(
+        slug = "agallery",
+        name = "AGallery",
+        platform = "Android",
+        stack = "Kotlin, Compose, ONNX",
+        year = "2026",
+        categories = listOf(ProjectCategory.Android, ProjectCategory.Ai),
+        githubUrl = "https://github.com/andreasmlbngaol/a-gallery",
+        apkUrl = "https://github.com/andreasmlbngaol/a-gallery/releases/latest",
+        highlight = true,
+        en = ProjectCopy(
+            cardDescription = "An offline Android gallery with on-device AI. No cloud, no account, no ads.",
+            tableDescription = "An offline Android gallery with on-device AI. No cloud, no account, no ads.",
+            lead = "An offline photo and video gallery for Android, with AI tools that run on the device and never touch the network.",
+            detail = agalleryDetailEn,
+        ),
+        id = ProjectCopy(
+            cardDescription = "Galeri Android offline dengan AI di perangkat. Tanpa cloud, tanpa akun, tanpa iklan.",
+            tableDescription = "Galeri Android offline dengan AI di perangkat. Tanpa cloud, tanpa akun, tanpa iklan.",
+            lead = "Galeri foto dan video offline untuk Android, dengan alat AI yang berjalan di perangkat dan tidak pernah menyentuh jaringan.",
+            detail = agalleryDetailId,
+        ),
+    ),
+    ProjectSeed(
+        slug = "tomavue",
+        name = "TomaVue",
+        platform = "Web",
+        stack = "React, Express, Flask, Docker",
+        year = "2026",
+        categories = listOf(ProjectCategory.Ai, ProjectCategory.Web, ProjectCategory.FullStack),
+        githubUrl = "https://github.com/andreasmlbngaol/tomavue",
+        liveUrl = "https://tomavue.pages.dev",
+        highlight = true,
+        en = ProjectCopy(
+            cardDescription = "Tomato leaf disease detection from a photo, with treatment steps from Gemini.",
+            tableDescription = "Tomato leaf disease detection from a photo, with treatment steps from Gemini.",
+            lead = "Tomato leaf disease detection from a photo, with a treatment plan written from the diagnosis.",
+            detail = tomavueDetailEn,
+        ),
+        id = ProjectCopy(
+            cardDescription = "Deteksi penyakit daun tomat dari foto, lengkap dengan langkah penanganan dari Gemini.",
+            tableDescription = "Deteksi penyakit daun tomat dari foto, lengkap dengan langkah penanganan dari Gemini.",
+            lead = "Deteksi penyakit daun tomat dari foto, lengkap dengan rencana penanganan yang ditulis dari diagnosis.",
+            detail = tomavueDetailId,
+        ),
+    ),
+    ProjectSeed(
+        slug = "caritas-kopi",
+        name = "Caritas Kopi",
+        platform = "Web",
+        stack = "Next.js, Supabase, R2",
+        year = "2026",
+        categories = listOf(ProjectCategory.Web, ProjectCategory.FullStack),
+        githubUrl = "https://github.com/andreasmlbngaol/caritas-kopi",
+        liveUrl = "https://caritas-kopi.vercel.app",
+        highlight = true,
+        en = ProjectCopy(
+            cardDescription = "A baseline data system for coffee villages, built during my IT internship.",
+            tableDescription = "A baseline data system for coffee villages, built during my IT internship.",
+            lead = "A baseline data system for coffee villages and farmers, built during my IT internship at Caritas KAM.",
+            detail = caritasDetailEn,
+        ),
+        id = ProjectCopy(
+            cardDescription = "Sistem data dasar untuk desa kopi, dibangun saat magang IT saya.",
+            tableDescription = "Sistem data dasar untuk desa kopi, dibangun saat magang IT saya.",
+            lead = "Sistem data dasar untuk desa dan petani kopi, dibangun selama magang IT saya di Caritas KAM.",
+            detail = caritasDetailId,
+        ),
+    ),
+    ProjectSeed(
+        slug = "x-tray",
+        name = "x-tray",
+        platform = "Desktop (Linux)",
+        stack = "Kotlin, Compose Desktop",
+        year = "2026",
+        categories = listOf(ProjectCategory.Desktop),
+        githubUrl = "https://github.com/andreasmlbngaol/x-tray",
+        en = ProjectCopy(
+            cardDescription = "Dynamic Island for the Linux desktop",
+            tableDescription = "Dynamic Island for the Linux desktop",
+            lead = "Dynamic Island for the Linux desktop",
+        ),
+        id = ProjectCopy(
+            cardDescription = "Dynamic Island untuk desktop Linux",
+            tableDescription = "Dynamic Island untuk desktop Linux",
+            lead = "Dynamic Island untuk desktop Linux",
+        ),
+    ),
+    ProjectSeed(
+        slug = "mpus",
+        name = "mpus",
+        platform = "Android, Backend",
+        stack = "Kotlin, Rust",
+        year = "2026",
+        categories = listOf(ProjectCategory.Android, ProjectCategory.Backend, ProjectCategory.Ai),
+        githubUrl = "https://github.com/andreasmlbngaol/mpus",
+        en = ProjectCopy(
+            cardDescription = "Cat photo app with re-identification on the backend",
+            tableDescription = "Cat photo app with re-identification on the backend",
+            lead = "Cat photo app with re-identification on the backend",
+        ),
+        id = ProjectCopy(
+            cardDescription = "Aplikasi foto kucing dengan identifikasi ulang di backend",
+            tableDescription = "Aplikasi foto kucing dengan identifikasi ulang di backend",
+            lead = "Aplikasi foto kucing dengan identifikasi ulang di backend",
+        ),
+    ),
+    ProjectSeed(
+        slug = "kra",
+        name = "KrA",
+        platform = "Web, Backend",
+        stack = "React, Kotlin, Spring Boot",
+        year = "2026",
+        categories = listOf(ProjectCategory.Web, ProjectCategory.Backend, ProjectCategory.FullStack),
+        githubUrl = "https://github.com/andreasmlbngaol/KrA",
+        en = ProjectCopy(
+            cardDescription = "KRS planning assistant with an LLM",
+            tableDescription = "KRS planning assistant with an LLM",
+            lead = "KRS planning assistant with an LLM",
+        ),
+        id = ProjectCopy(
+            cardDescription = "Asisten perencanaan KRS dengan LLM",
+            tableDescription = "Asisten perencanaan KRS dengan LLM",
+            lead = "Asisten perencanaan KRS dengan LLM",
+        ),
+    ),
+    ProjectSeed(
+        slug = "sppg",
+        name = "sppg",
+        platform = "Web, Backend",
+        stack = "React, Kotlin, Spring Boot",
+        year = "2026",
+        categories = listOf(ProjectCategory.Web, ProjectCategory.Backend, ProjectCategory.FullStack),
+        githubUrl = "https://github.com/andreasmlbngaol/sppg-be",
+        en = ProjectCopy(
+            cardDescription = "Baseline data platform for the SPPG program",
+            tableDescription = "Baseline data platform for the SPPG program",
+            lead = "Baseline data platform for the SPPG program",
+        ),
+        id = ProjectCopy(
+            cardDescription = "Platform data dasar untuk program SPPG",
+            tableDescription = "Platform data dasar untuk program SPPG",
+            lead = "Platform data dasar untuk program SPPG",
+        ),
+    ),
+    ProjectSeed(
+        slug = "stegasaurus",
+        name = "stegasaurus",
+        platform = "Android, Desktop",
+        stack = "Kotlin, Compose Multiplatform",
+        year = "2026",
+        categories = listOf(ProjectCategory.Android, ProjectCategory.Desktop),
+        githubUrl = "https://github.com/andreasmlbngaol/stegasaurus",
+        en = ProjectCopy(
+            cardDescription = "Steganography with end-to-end signcryption",
+            tableDescription = "Steganography with end-to-end signcryption",
+            lead = "Steganography with end-to-end signcryption",
+        ),
+        id = ProjectCopy(
+            cardDescription = "Steganografi dengan signcryption end-to-end",
+            tableDescription = "Steganografi dengan signcryption end-to-end",
+            lead = "Steganografi dengan signcryption end-to-end",
+        ),
+    ),
+    ProjectSeed(
+        slug = "rabin-cipher",
+        name = "rabin-cipher",
+        platform = "Web, Desktop",
+        stack = "Kotlin, Wasm",
+        year = "2026",
+        categories = listOf(ProjectCategory.Web, ProjectCategory.Desktop),
+        githubUrl = "https://github.com/andreasmlbngaol/rabin-cipher",
+        en = ProjectCopy(
+            cardDescription = "Rabin cryptosystem playground",
+            tableDescription = "Rabin cryptosystem playground",
+            lead = "Rabin cryptosystem playground",
+        ),
+        id = ProjectCopy(
+            cardDescription = "Playground kriptosistem Rabin",
+            tableDescription = "Playground kriptosistem Rabin",
+            lead = "Playground kriptosistem Rabin",
+        ),
+    ),
+    ProjectSeed(
+        slug = "goodminton",
+        name = "goodminton",
+        platform = "Android",
+        stack = "Kotlin, Firebase",
+        year = "2026",
+        categories = listOf(ProjectCategory.Android),
+        githubUrl = "https://github.com/andreasmlbngaol/goodminton",
+        en = ProjectCopy(
+            cardDescription = "Badminton league tracker with stats",
+            tableDescription = "Badminton league tracker with stats",
+            lead = "Badminton league tracker with stats",
+        ),
+        id = ProjectCopy(
+            cardDescription = "Pencatat liga bulu tangkis dengan statistik",
+            tableDescription = "Pencatat liga bulu tangkis dengan statistik",
+            lead = "Pencatat liga bulu tangkis dengan statistik",
+        ),
+    ),
+    ProjectSeed(
+        slug = "capek-mikir",
+        name = "capek-mikir",
+        platform = "Android, Desktop, Web",
+        stack = "Dart, Flutter",
+        year = "2025",
+        categories = listOf(ProjectCategory.Android, ProjectCategory.Desktop, ProjectCategory.Web, ProjectCategory.FullStack),
+        githubUrl = "https://github.com/andreasmlbngaol/capek-mikir",
+        en = ProjectCopy(
+            cardDescription = "Flutter quiz app with timed categories",
+            tableDescription = "Flutter quiz app with timed categories",
+            lead = "Flutter quiz app with timed categories",
+        ),
+        id = ProjectCopy(
+            cardDescription = "Aplikasi kuis Flutter dengan kategori bertimer",
+            tableDescription = "Aplikasi kuis Flutter dengan kategori bertimer",
+            lead = "Aplikasi kuis Flutter dengan kategori bertimer",
+        ),
+    ),
+    ProjectSeed(
+        slug = "siji-usu-server",
+        name = "siji-usu-server",
+        platform = "Backend",
+        stack = "Java, Spring Boot",
+        year = "2025",
+        categories = listOf(ProjectCategory.Backend),
+        githubUrl = "https://github.com/andreasmlbngaol/siji-usu-server",
+        en = ProjectCopy(
+            cardDescription = "Campus academic REST API with JWT",
+            tableDescription = "Campus academic REST API with JWT",
+            lead = "Campus academic REST API with JWT",
+        ),
+        id = ProjectCopy(
+            cardDescription = "REST API akademik kampus dengan JWT",
+            tableDescription = "REST API akademik kampus dengan JWT",
+            lead = "REST API akademik kampus dengan JWT",
+        ),
+    ),
+)
+
+private val enExperience = listOf(
+    TimelineItem("IT Intern", "Caritas KAM, Medan", "2026", TimelineIcon.Internship),
+    TimelineItem("Programming Lab Assistant", "Ilmu Komputer Lab Center, Medan", "2024", TimelineIcon.Work),
+    TimelineItem("Event Division", "21st CS Anniversary, Medan", "2022", TimelineIcon.Group),
+)
+
+private val idExperience = listOf(
+    TimelineItem("Magang IT", "Caritas KAM, Medan", "2026", TimelineIcon.Internship),
+    TimelineItem("Asisten Laboratorium Pemrograman", "Ilmu Komputer Lab Center, Medan", "2024", TimelineIcon.Work),
+    TimelineItem("Divisi Acara", "21st CS Anniversary, Medan", "2022", TimelineIcon.Group),
+)
+
+private val enEducation = listOf(
+    TimelineItem("Universitas Sumatera Utara", "Computer Science, 2022 to now", "2022", TimelineIcon.School),
+    TimelineItem("Coding Camp", "AI Engineer, DBS Foundation", "2026", TimelineIcon.School),
+)
+
+private val idEducation = listOf(
+    TimelineItem("Universitas Sumatera Utara", "Ilmu Komputer, 2022 sampai sekarang", "2022", TimelineIcon.School),
+    TimelineItem("Coding Camp", "AI Engineer, DBS Foundation", "2026", TimelineIcon.School),
+)
+
+fun portfolioContent(language: Language): PortfolioContent {
+    val strings = if (language == Language.EN) enStrings else idStrings
+    val projects = projectSeeds.map { seed ->
+        val copy = if (language == Language.EN) seed.en else seed.id
+        Project(
+            slug = seed.slug,
+            name = seed.name,
+            cardDescription = copy.cardDescription,
+            tableDescription = copy.tableDescription,
+            lead = copy.lead,
+            platform = seed.platform,
+            stack = seed.stack,
+            year = seed.year,
+            categories = seed.categories,
+            githubUrl = seed.githubUrl,
+            liveUrl = seed.liveUrl,
+            apkUrl = seed.apkUrl,
+            highlight = seed.highlight,
+            detail = copy.detail,
+        )
+    }
+    return PortfolioContent(
+        strings = strings,
+        projects = projects,
+        experience = if (language == Language.EN) enExperience else idExperience,
+        education = if (language == Language.EN) enEducation else idEducation,
+        skills = skillGroups(strings),
+    )
+}

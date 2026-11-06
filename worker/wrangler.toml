@@ -1,0 +1,12 @@
+name = "studio-contact"
+main = "src/index.ts"
+compatibility_date = "2026-01-01"
+
+# Deploy from this directory:
+#   npx wrangler deploy
+#   npx wrangler secret put RESEND_API_KEY
+#
+# Optional variables (set in the dashboard or with `wrangler secret put`):
+#   CONTACT_TO        defaults to lgandre45@gmail.com
+#   CONTACT_FROM      defaults to "Studio <onboarding@resend.dev>"
+#   ALLOWED_ORIGINS   defaults to "*"; set to https://<user>.github.io in production

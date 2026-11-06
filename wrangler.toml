@@ -1,0 +1,9 @@
+name = "studio"
+compatibility_date = "2026-01-01"
+pages_build_output_dir = "webApp/build/dist/wasmJs/productionExecutable"
+
+# Cloudflare Pages project settings.
+# Set these as encrypted environment variables in the Pages dashboard:
+#   RESEND_API_KEY  API key from https://resend.com
+#   CONTACT_TO      inbox that receives the messages, e.g. lgandre45@gmail.com
+#   CONTACT_FROM    verified sender, e.g. Studio <hello@yourdomain.com>

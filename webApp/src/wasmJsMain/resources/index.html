@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Portfolio of Andreas Manatar Lumban Gaol, software engineer based in Medan, Indonesia.">
+    <meta name="theme-color" content="#111318">
+    <!-- Empty means same-origin /api/contact (Cloudflare Pages).
+         On GitHub Pages set this to the deployed Worker URL, for example
+         https://studio-contact.example.workers.dev/api/contact -->
+    <meta name="contact-endpoint" content="https://studio-contact.lgandre45.workers.dev/api/contact">
+    <title>Studio - Andreas Manatar Lumban Gaol</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link type="text/css" rel="stylesheet" href="styles.css">
+    <script>
+        (function () {
+            try {
+                var mode = localStorage.getItem('studio.theme');
+                var dark = mode === 'Dark' || (mode !== 'Light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                document.documentElement.style.setProperty('--app-bg', dark ? '#111318' : '#F9F9FF');
+                document.documentElement.style.backgroundColor = dark ? '#111318' : '#F9F9FF';
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+            } catch (error) {
+                document.documentElement.style.setProperty('--app-bg', '#111318');
+                document.documentElement.style.backgroundColor = '#111318';
+            }
+            setTimeout(function () {
+                if (document.body) document.body.classList.add('app-ready');
+            }, 5000);
+        })();
+    </script>
+</head>
+<body>
+    <script type="application/javascript" src="webApp.js"></script>
+</body>
+</html>
