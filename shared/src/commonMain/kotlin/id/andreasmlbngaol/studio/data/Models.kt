@@ -185,6 +185,7 @@ data class Strings(
     val formMessagePlaceholder: String,
     val formSend: String,
     val formSending: String,
+    val formSuccessTitle: String,
     val formSuccess: String,
     val formError: String,
     val formNameError: String,
